@@ -25,16 +25,22 @@
     <Filter Include="Libraries\DSA\Structures\Arrays">
       <UniqueIdentifier>{715d4f8e-b74b-47f9-b167-8ee35f681902}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\unit_tests">
+    <Filter Include="Source Files\Unit Test">
       <UniqueIdentifier>{808c4c39-42bd-401c-813c-d0ed8521892e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Unit Test\Structures">
+      <UniqueIdentifier>{292201ab-e1db-494c-affd-b3572f953b4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Unit Test\Structures\Arrays">
+      <UniqueIdentifier>{c391a606-8880-4526-af22-5a023dfe359e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="unit_tests.cpp">
-      <Filter>Source Files\unit_tests</Filter>
+    <ClCompile Include="unit_tests\structures\arrays\dynamic_array.cpp">
+      <Filter>Source Files\Unit Test\Structures\Arrays</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,8 +50,8 @@
     <ClInclude Include="..\libs\dsa\structures\arrays\static_array.h">
       <Filter>Libraries\DSA\Structures\Arrays</Filter>
     </ClInclude>
-    <ClInclude Include="unit_tests.h">
-      <Filter>Source Files\unit_tests</Filter>
+    <ClInclude Include="unit_tests\structures\arrays\dynamic_array.h">
+      <Filter>Source Files\Unit Test\Structures\Arrays</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

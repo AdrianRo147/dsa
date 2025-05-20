@@ -6,7 +6,7 @@
 #include <dsa/structures/arrays/static_array.h>
 #include <dsa/structures/arrays/dynamic_array.h>
 
-#include "unit_tests.h"
+#include "unit_tests/structures/arrays/dynamic_array.h"
 
 int main()
 {
@@ -30,5 +30,5 @@ int main()
 
     std::cout << "\n\n\nDYNAMIC ARRAY\n";
 
-    tests::dynamicArray();
+    tests::structures::arrays::dynamicArray();
 }

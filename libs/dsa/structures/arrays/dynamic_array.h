@@ -301,7 +301,15 @@ namespace dsa::structures
 		}
 		DynamicArray<T>& operator=(const std::initializer_list<T>& list)
 		{
-			delete this->pElements;
+			if (list.size() == 0)
+			{
+				delete[] this->pElements;
+				this->pElements = nullptr;
+				this->mSize = 0;
+
+				return *this;
+			}
+
 			delete[] this->pElements;
 
 			this->mSize = list.size();

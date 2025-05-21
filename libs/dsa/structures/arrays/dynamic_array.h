@@ -248,7 +248,7 @@ namespace dsa::structures
 			}
 
 			T* temp;
-			temp = new T[this->mSize];
+			temp = new T[this->mSize - 1];
 
 			for (size_t i = 0; i < this->mSize; i++)
 			{

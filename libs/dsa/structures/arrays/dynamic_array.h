@@ -284,6 +284,8 @@ namespace dsa::structures
 				this->pElements[i] = other.pElements[i];
 			}
 
+			return *this;
+		}
 		DynamicArray<T>& operator=(DynamicArray<T>&& other) noexcept
 		{
 			if (this == &other)

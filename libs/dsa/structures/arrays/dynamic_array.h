@@ -48,7 +48,7 @@ namespace dsa::structures
 		{
 			if (this->mSize != 0)
 			{
-				delete this->pElements;
+				delete[] this->pElements;
 				this->pElements = nullptr;
 			}
 		}
@@ -144,7 +144,7 @@ namespace dsa::structures
 
 			this->mSize++;
 
-			delete this->pElements;
+			delete[] this->pElements;
 
 			this->pElements = temp;
 		}
@@ -172,7 +172,7 @@ namespace dsa::structures
 
 			this->mSize++;
 
-			delete this->pElements;
+			delete[] this->pElements;
 
 			this->pElements = temp;
 		}
@@ -197,7 +197,7 @@ namespace dsa::structures
 				temp[i] = this->pElements[i];
 			}
 
-			delete this->pElements;
+			delete[] this->pElements;
 
 			this->pElements = temp;
 
@@ -225,7 +225,7 @@ namespace dsa::structures
 				temp[i] = this->pElements[i + 1];
 			}
 
-			delete this->pElements;
+			delete[] this->pElements;
 
 			this->pElements = temp;
 
@@ -257,7 +257,7 @@ namespace dsa::structures
 					temp[i - 1] = this->pElements[i];
 			}
 
-			delete this->pElements;
+			delete[] this->pElements;
 
 			this->pElements = temp;
 
@@ -297,6 +297,7 @@ namespace dsa::structures
 		DynamicArray<T>& operator=(const std::initializer_list<T>& list)
 		{
 			delete this->pElements;
+			delete[] this->pElements;
 
 			this->mSize = list.size();
 

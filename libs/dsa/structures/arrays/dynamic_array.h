@@ -209,6 +209,14 @@ namespace dsa::structures
 			if (this->mSize == 0)
 				throw std::runtime_error("Cannot remove item when no item is present in array");
 
+			if (this->mSize == 1)
+			{
+				delete[] this->pElements;
+
+				this->pElements = nullptr;
+				this->mSize--;
+				return;
+			}
 			T* temp;
 			temp = new T[this->mSize - 1];
 

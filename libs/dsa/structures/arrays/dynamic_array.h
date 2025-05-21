@@ -135,7 +135,7 @@ namespace dsa::structures
 			T* temp;
 			temp = new T[this->mSize + 1];
 
-			for (int i = 0; i < this->mSize; i++)
+			for (size_t i = 0; i < this->mSize; i++)
 			{
 				temp[i] = this->pElements[i];
 			}
@@ -165,7 +165,7 @@ namespace dsa::structures
 
 			temp[0] = value;
 
-			for (int i = 0; i < this->mSize; i++)
+			for (size_t i = 0; i < this->mSize; i++)
 			{
 				temp[i + 1] = this->pElements[i];
 			}
@@ -189,10 +189,11 @@ namespace dsa::structures
 				this->mSize--;
 				return;
 			}
+
 			T* temp;
 			temp = new T[this->mSize - 1];
 
-			for (int i = 0; i < this->mSize - 1; i++)
+			for (size_t i = 0; i < this->mSize - 1; i++)
 			{
 				temp[i] = this->pElements[i];
 			}
@@ -217,10 +218,11 @@ namespace dsa::structures
 				this->mSize--;
 				return;
 			}
+
 			T* temp;
 			temp = new T[this->mSize - 1];
 
-			for (int i = 0; i < this->mSize - 1; i++)
+			for (size_t i = 0; i < this->mSize - 1; i++)
 			{
 				temp[i] = this->pElements[i + 1];
 			}
@@ -245,7 +247,7 @@ namespace dsa::structures
 			T* temp;
 			temp = new T[this->mSize];
 
-			for (int i = 0; i < this->mSize; i++)
+			for (size_t i = 0; i < this->mSize; i++)
 			{
 				if (i == index)
 					continue;
@@ -318,7 +320,7 @@ namespace dsa::structures
 
 		friend std::ostream& operator<<(std::ostream& os, const DynamicArray<T>& array)
 		{
-			for (int i = 0; i < array.mSize; i++)
+			for (size_t i = 0; i < array.mSize; i++)
 			{
 				os << "Index: " << i << " | Value: " << array.pElements[i] << std::endl;
 			}

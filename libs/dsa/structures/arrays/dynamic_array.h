@@ -236,6 +236,9 @@ namespace dsa::structures
 
 		void removeAt(size_t index)
 		{
+			if (index >= this->mSize)
+				throw std::out_of_range("Index out of array bounds");
+
 			if (this->mSize == 1)
 			{
 				delete[] this->pElements;

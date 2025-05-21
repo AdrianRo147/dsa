@@ -234,6 +234,14 @@ namespace dsa::structures
 
 		void removeAt(size_t index)
 		{
+			if (this->mSize == 1)
+			{
+				delete[] this->pElements;
+				this->pElements = nullptr;
+				this->mSize--;
+				return;
+			}
+
 			T* temp;
 			temp = new T[this->mSize];
 

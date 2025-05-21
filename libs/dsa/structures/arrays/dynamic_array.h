@@ -53,6 +53,14 @@ namespace dsa::structures
 			}
 		}
 
+		DynamicArray(DynamicArray<T>&& other) noexcept
+		{
+			this->mSize = other.mSize;
+			this->pElements = other.pElements;
+
+			other.mSize = 0;
+			other.pElements = nullptr;
+		}
 		T& get(const size_t index)
 		{
 			if (index >= this->mSize || index < 0)

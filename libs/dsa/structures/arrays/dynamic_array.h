@@ -34,6 +34,16 @@ namespace dsa::structures
 			}
 		}
 
+		DynamicArray(const DynamicArray<T>& other)
+		{
+			this->mSize = other.mSize;
+			this->pElements = new T[this->mSize]();
+
+			for (int i = 0; i < this->mSize; i++)
+			{
+				this->pElements[i] = other.pElements[i];
+			}
+		}
 		~DynamicArray()
 		{
 			if (this->mSize != 0)

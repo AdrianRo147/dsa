@@ -88,6 +88,7 @@ namespace dsa::structures
 		}
 
 		constexpr size_t getSize()
+		constexpr size_t getSize() const
 		{
 			return this->mSize;
 		}

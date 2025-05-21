@@ -71,7 +71,7 @@ namespace dsa::structures
 
 		const T& get(const size_t index) const
 		{
-			if (index >= this->mSize || index < 0)
+			if (index >= this->mSize)
 				throw std::out_of_range("Index out of array bounds");
 
 			return this->pElements[index];

@@ -279,6 +279,19 @@ namespace dsa::structures
 				this->pElements[i] = other.pElements[i];
 			}
 
+		DynamicArray<T>& operator=(DynamicArray<T>&& other) noexcept
+		{
+			if (this == &other)
+				return *this;
+
+			delete[] this->pElements;
+
+			this->mSize = other.mSize;
+			this->pElements = other.pElements;
+
+			other.mSize = 0;
+			other.pElements = nullptr;
+
 			return *this;
 		}
 		DynamicArray<T>& operator=(const std::initializer_list<T>& list)

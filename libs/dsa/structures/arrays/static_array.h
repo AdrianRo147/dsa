@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <initializer_list>
 #include <stdexcept>
 #include <iostream>
@@ -25,7 +26,7 @@ namespace dsa::structures
 
 			this->pElements = new T[size]();
 
-			int i = 0;
+			size_t i = 0;
 
 			for (T it : list)
 			{
@@ -113,7 +114,7 @@ namespace dsa::structures
 			if (size != list.size())
 				throw std::runtime_error("Entered array size does not match template parameter size");
 
-			int i = 0;
+			size_t i = 0;
 
 			for (T value : list)
 			{
@@ -160,7 +161,7 @@ namespace dsa::structures
 
 		friend std::ostream& operator<<(std::ostream& os, const StaticArray<T, size>& array)
 		{
-			for (int i = 0; i < size; i++)
+			for (size_t i = 0; i < size; i++)
 			{
 				os << "Index: " << i << " | " << "Value: " << array.pElements[i] << "\n";
 			}

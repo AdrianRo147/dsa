@@ -56,7 +56,7 @@ namespace dsa::structures
 
 		~StaticArray()
 		{
-			delete this->pElements;
+			delete[] this->pElements;
 			this->pElements = NULL;
 		}
 

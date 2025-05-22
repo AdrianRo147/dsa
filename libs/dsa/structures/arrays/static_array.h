@@ -1,7 +1,8 @@
 #pragma once
 
 #include <initializer_list>
-#include <ostream>
+#include <stdexcept>
+#include <iostream>
 
 namespace dsa::structures
 {
@@ -34,6 +35,23 @@ namespace dsa::structures
 				this->pElements[i++] = it;
 			}
 		}
+
+        // copy constructor
+        StaticArray(const StaticArray<T, size>& other)
+        {
+            this->pElements = new T[size]();
+
+            for (size_t i = 0; i < size; i++) {
+                this->pElements[i] = other.pElements[i];
+            }
+        }
+
+        // move constructor
+        StaticArray(StaticArray<T, size>&& other) noexcept
+        {
+            this->pElements = other.pElements;
+            other.pElements = nullptr;
+        }
 
 		~StaticArray()
 		{
@@ -107,6 +125,38 @@ namespace dsa::structures
 
 			return *this;
 		}
+
+        // copy assignment operator
+        StaticArray<T, size>& operator=(const StaticArray<T, size>& other)
+        {
+            if (this == other)
+                return *this;
+
+            delete[] this->pElements;
+
+            this->pElements = new T[size]();
+
+            for (size_t i = 0; i < size; i++)
+            {
+                this->pElements[i] = other.pElements[i];
+            }
+            
+            return *this;
+        }
+
+        // move assignment operator
+        StaticArray<T, size>& operator=(StaticArray<T, size>&& other) noexcept
+        {
+            if (this == &other)
+                return *this;
+
+            delete[] this->pElements;
+
+            this->pElements = other.pElements;
+            other.pElements = nullptr;
+
+            return *this;
+        }
 
 		friend std::ostream& operator<<(std::ostream& os, const StaticArray<T, size>& array)
 		{

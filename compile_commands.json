@@ -1,0 +1,12 @@
+[
+  {
+    "directory": "/home/adrian/dsa",
+    "command": "g++ -Wall -Wextra -std=c++17 -Ilibs -c src/main.cpp -o src/main.o -std=c++17 -Wno-c++17-extensions",
+    "file": "/home/adrian/dsa/src/main.cpp"
+  },
+  {
+    "directory": "/home/adrian/dsa",
+    "command": "g++ -Wall -Wextra -std=c++17 -Ilibs -c src/unit_tests/structures/arrays/dynamic_array.cpp -o src/unit_tests/structures/arrays/dynamic_array.o -std=c++17 -Wno-c++17-extensions",
+    "file": "/home/adrian/dsa/src/unit_tests/structures/arrays/dynamic_array.cpp"
+  }
+]

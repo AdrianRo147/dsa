@@ -1,5 +1,5 @@
 #pragma once
 
 namespace tests::structures::arrays {
-	void dynamicArray();
+    void dynamicArray();
 }

@@ -7,8 +7,8 @@
 #include <cassert>
 
 void tests::structures::arrays::dynamicArray() {
-    dsa::structures::DynamicArray<int> arr1;
-    dsa::structures::DynamicArray<int> arr2{ 1, 2, 3, 4 };
+    dsa::structures::arrays::DynamicArray<int> arr1;
+    dsa::structures::arrays::DynamicArray<int> arr2{ 1, 2, 3, 4 };
 
     arr1.addLast(10);
     arr1.addLast(20);

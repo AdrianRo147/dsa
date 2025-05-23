@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <iostream>
 
-namespace dsa::structures
+namespace dsa::structures::arrays
 {
 	/**
 	 * @brief A simple dynamic array implementation.

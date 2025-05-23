@@ -1,5 +1,3 @@
-#pragma once
-
 #include "dynamic_array.h"
 
 #include <iostream>

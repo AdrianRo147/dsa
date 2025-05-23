@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <initializer_list>
 #include <stdexcept>
 #include <iostream>
@@ -38,7 +39,7 @@ namespace dsa::structures::arrays
                 this->mSize = array.size();
                 this->pElements = new T[this->mSize]();
 
-                int i = 0;
+                size_t i = 0;
 
                 for (T it : array)
                 {
@@ -58,7 +59,7 @@ namespace dsa::structures::arrays
                 this->mSize = other.mSize;
                 this->pElements = new T[this->mSize]();
 
-                for (int i = 0; i < this->mSize; i++)
+                for (size_t i = 0; i < this->mSize; i++)
                 {
                     this->pElements[i] = other.pElements[i];
                 }
@@ -441,7 +442,7 @@ namespace dsa::structures::arrays
 
                 this->pElements = new T[this->mSize];
 
-                int i = 0;
+                size_t i = 0;
 
                 for (T it : list)
                 {

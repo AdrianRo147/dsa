@@ -6,6 +6,119 @@
 namespace dsa::structures::arrays
 {
     /**
+     * @brief Iterator class for StaticArray.
+     * @tparam StaticArray Type of static array.
+     */
+    template<typename StaticArray>
+    class StaticArrayIterator
+    {
+        public:
+            using ValueType = typename StaticArray::ValueType;      /// Type of static array elements value.
+            using PointerType = ValueType*;                         /// Pointer type to value.
+            using ReferenceType = ValueType&;                       /// Reference type to value.
+
+        private:
+            PointerType mPtr;                                       /// Pointer to current element.
+
+        public:
+            /**
+             * @brief Default constructor. Initializes pointer to element.
+             * @param ptr Pointer to element.
+             */
+            StaticArrayIterator(PointerType ptr) : mPtr(ptr) {}
+
+            /**
+             * @brief Postfix increment operator. Increments pointer to element.
+             * @return Reference to this instance of StaticArrayIterator.
+             */
+            StaticArrayIterator& operator++()
+            {
+                this->mPtr++;
+                return *this;
+            }
+
+            /**
+             * @brief Prefix increment operator. Increments pointer to element.
+             * @return Instance of iterator.
+             */
+            StaticArrayIterator operator++(int)
+            {
+                StaticArrayIterator iterator = *this;
+                ++(*this);
+                return iterator;
+            }
+
+            /**
+             * @brief Postfix decrement operator. Decrements pointer to element.
+             * @return Reference to this instance of StaticArrayIterator.
+             */
+            StaticArrayIterator& operator--()
+            {
+                return this->mPtr--;
+                return *this;
+            }
+
+            /**
+             * @brief Prefix decrement operator. Decrements pointer to element.
+             * @return Instance of iterator.
+             */
+            StaticArrayIterator operator--(int)
+            {
+                StaticArrayIterator iterator = *this;
+                --(*this);
+                return iterator;
+            }
+
+            /**
+             * @brief Gets pointer at specific index.
+             * @param index Index to get.
+             * @return Reference to StaticArray at specific index.
+             */
+            ReferenceType operator[](int index)
+            {
+                return this->mPtr[index];
+            }
+
+            /**
+             * @brief Gets pointer to internal pointer.
+             * @return Pointer to StaticArray.
+             */
+            PointerType operator->()
+            {
+                return this->mPtr;
+            }
+
+            /**
+             * @brief Gets reference to dereferenced internal pointer.
+             * @return Reference to StaticArray.
+             */
+            ReferenceType operator*()
+            {
+                return *this->mPtr;
+            }
+
+            /**
+             * @brief Equals operator.
+             * @param other Other instance of StaticArrayIterator to compare with.
+             * @return True if internal pointers equals.
+             */
+            bool operator==(const StaticArrayIterator& other) const
+            {
+                return this->mPtr == other.mPtr;
+            }
+
+            /**
+             * @brief Not equals operator.
+             * @param other Other instance of StaticArrayIterator to compare with.
+             * @return True if internal pointers do not equals.
+             */
+            bool operator!=(const StaticArrayIterator& other) const
+            {
+                return this->mPtr != other.mPtr;
+            }
+    };
+
+    /**
       * @brief Simple static array implementation
       *
       * Provides basic static array functionality such as setting at index, getting element at index,
@@ -20,6 +133,10 @@ namespace dsa::structures::arrays
     {
         private:
             T* pElements;       /// Pointer to elements array.
+
+        public:
+            using ValueType = T;
+            using Iterator = StaticArrayIterator<StaticArray<T, size>>;
 
         public:
             /**
@@ -259,21 +376,21 @@ namespace dsa::structures::arrays
             }
 
             /**
-             * @brief Gets pointer to first element (for range-based for loops).
-             * @return Pointer to first element.
+             * @brief Returns a new instance of StaticArrayIterator which points to first element.
+             * @return Instance of StaticArrayIterator.
              */
-            T* begin()
+            Iterator begin()
             {
-                return this->pElements;
+                return Iterator(this->pElements);
             }
 
             /**
-             * @brief Gets pointer to last element (for range-based for loops).
-             * @return Pointer to last element.
+             * @brief Returns a new instace of StaticArrayIterator which points to last element.
+             * @return Instance of StaticArrayIterator.
              */
-            T* end()
+            Iterator end()
             {
-                return this->pElements + size;
+                return Iterator(this->pElements + size);
             }
     };
 }

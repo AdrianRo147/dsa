@@ -1,10 +1,122 @@
-#include <cstddef>
 #include <initializer_list>
 #include <stdexcept>
 #include <iostream>
 
 namespace dsa::structures::arrays
 {
+    /**
+     * @brief Iterator class for DynamicArray.
+     * @tparam DynamicArray Type of dynamic array.
+     */
+    template<typename DynamicArray>
+    class DynamicArrayIterator
+    {
+        public:
+            using ValueType = typename DynamicArray::ValueType;     /// Type of dynamic array elements value.
+            using PointerType = ValueType*;                         /// Pointer type to value.
+            using ReferenceType = ValueType&;                       /// Reference type to value
+
+        private:
+            PointerType mPtr;                                       /// Pointer to current element.
+
+        public:
+            /**
+             * @brief Default constructor. Initializes pointer to element.
+             * @param ptr Pointer to element.
+             */
+            DynamicArrayIterator(PointerType ptr) : mPtr(ptr) {}
+
+            /**
+             * @brief Postfix increment operator. Increment pointer to element.
+             * @return Refrence to this instance of DynamicArrayIterator.
+             */
+            DynamicArrayIterator& operator++()
+            {
+                this->mPtr++;
+                return *this;
+            }
+
+            /**
+             * @brief Prefix increment operator. Increments pointer to element.
+             * @return Instance of iterator.
+             */
+            DynamicArrayIterator operator++(int)
+            {
+                DynamicArrayIterator iterator = *this;
+                ++(*this);
+                return iterator;
+            }
+
+            /**
+             * @brief Postfix decrement operator. Decrements pointer to element.
+             * @return Instance of iterator.
+             */
+            DynamicArrayIterator& operator--()
+            {
+                this->mPtr--;
+                return *this;
+            }
+
+            /**
+             * @brief Prefix decrement operator. Decrements pointer to element.
+             * @return Instance of iterator.
+             */
+            DynamicArrayIterator operator--(int)
+            {
+                DynamicArrayIterator iterator = *this;
+                --(*this);
+                return iterator;
+            }
+
+            /**
+             * @brief Gets pointer at specific index.
+             * @param index Index to get.
+             * @return Reference to DynamicArray at specific index.
+             */
+            ReferenceType operator[](int index)
+            {
+                return this->mPtr[index];
+            }
+
+            /**
+             * @brief Gets pointer to internal pointer.
+             * @return Pointer to DynamicArray.
+             */
+            PointerType operator->()
+            {
+                return this->mPtr;
+            }
+
+            /**
+             * @brief Gets reference to derefenced internal pointer.
+             * @return Reference to DynamicArray.
+             */
+            ReferenceType operator*()
+            {
+                return *this->mPtr;
+            }
+
+            /**
+             * @brief Equals operator.
+             * @param other Other instance of DynamicArrayIterator to compare with.
+             * @return True if internal pointers equals.
+             */
+            bool operator==(const DynamicArrayIterator& other) const
+            {
+                return this->mPtr == other.mPtr;
+            }
+
+            /**
+             * @brief Not equals operator.
+             * @param other Other instance of DynamicArrayIterator to compare with.
+             * @return True if internal pointers do not equals.
+             */
+            bool operator!=(const DynamicArrayIterator& other) const
+            {
+                return this->mPtr != other.mPtr;
+            }
+    };
+
     /**
      * @brief A simple dynamic array implementation.
      *
@@ -19,6 +131,10 @@ namespace dsa::structures::arrays
         private:
             T* pElements;      /// Pointer to the array elements.
             size_t mSize;      /// Number of elements in the array.
+
+        public:
+            using ValueType = T;
+            using Iterator = DynamicArrayIterator<DynamicArray<T>>;
 
         public:
             /**
@@ -472,21 +588,21 @@ namespace dsa::structures::arrays
             }
 
             /**
-             * @brief Returns a pointer to the first element (for range-based for loops).
-             * @return Pointer to the first element.
+             * @brief Returns a new instance of DynamicArrayIterator which points to first element.
+             * @return Instance of DynamicArrayIterator.
              */
-            T* begin()
+            Iterator begin()
             {
-                return this->pElements;
+                return Iterator(this->pElements);
             }
 
             /**
-             * @brief Returns a pointer past the last element (for range-based for loops).
-             * @return Pointer past the last element.
+             * @brief Returns a new instance of DynamicArrayIterator which points to last element.
+             * @return Instance of DynamicArrayIterator.
              */
-            T* end()
+            Iterator end()
             {
-                return this->pElements + this->mSize;
+                return Iterator(this->pElements + this->mSize);
             }
     };
 }

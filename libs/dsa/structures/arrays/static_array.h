@@ -136,32 +136,32 @@ namespace dsa::structures::arrays
 
         public:
             using ValueType = T;
-            using Iterator = StaticArrayIterator<StaticArray<T, size>>;
+            using ReferenceType T&;
+            using ConstReferenceType = const T&;
+            using PointerType = T*;
+            using Iterator = StaticArrayIterator<StaticArray<ValueType, size>>;
 
         public:
             /**
              * @brief Default constructor. Initializes an empty array.
              */
-            StaticArray()
-            {
-                this->pElements = new T[size]();
-            }
+            StaticArray() : pElements(new ValueType[size]()) {}
 
             /**
              * @brief Constructs the array from an initializer list.
              * @param list Initializer list of array elements.
              * @throws std::runtime_error if list size does not match array size
              */
-            StaticArray(const std::initializer_list<T> list)
+            StaticArray(const std::initializer_list<ValueType> list)
             {
                 if (size != list.size())
                     throw std::runtime_error("Entered array size does not match template parameter size");
 
-                this->pElements = new T[size]();
+                this->pElements = new ValueType[size];
 
                 size_t i = 0;
 
-                for (T it : list)
+                for (ValueType it : list)
                 {
                     if (i >= size)
                         return;
@@ -174,10 +174,8 @@ namespace dsa::structures::arrays
              * @brief Copy constructor. Creates deep copy of another StaticArray.
              * @param other StaticArray to copy from.
              */
-            StaticArray(const StaticArray<T, size>& other)
+            StaticArray(const StaticArray<ValueType, size>& other) : pElements(new ValueType[size])
             {
-                this->pElements = new T[size]();
-
                 for (size_t i = 0; i < size; i++) {
                     this->pElements[i] = other.pElements[i];
                 }
@@ -190,9 +188,8 @@ namespace dsa::structures::arrays
              *
              * @param other StaticArray to move from.
              */
-            StaticArray(StaticArray<T, size>&& other) noexcept
+            StaticArray(StaticArray<ValueType, size>&& other) noexcept : pElements(other.pElements)
             {
-                this->pElements = other.pElements;
                 other.pElements = nullptr;
             }
 
@@ -211,7 +208,7 @@ namespace dsa::structures::arrays
              * @throws std::out_of_range if index is out of array bounds.
              * @return Reference to element of template type T.
              */
-            T& get(const size_t index)
+            ReferenceType get(const size_t index)
             {
                 if (index >= size)
                     throw std::out_of_range("Index out of array bounds");
@@ -225,7 +222,7 @@ namespace dsa::structures::arrays
              * @throws std::out_of_range if index is out of array bounds.
              * @return Const reference to element of template type T.
              */
-            const T& get(const size_t index) const
+            ConstReferenceType get(const size_t index) const
             {
                 if (index >= size)
                     throw std::out_of_range("Index out of array bounds");
@@ -247,7 +244,7 @@ namespace dsa::structures::arrays
              * @param index Index of element.
              * @return Reference to element of template type T.
              */
-            T& operator[](const size_t index)
+            ReferenceType operator[](const size_t index)
             {
                 return this->get(index);
             }
@@ -257,7 +254,7 @@ namespace dsa::structures::arrays
              * @param index Index of element.
              * @return Const reference to element of template type T.
              */
-            const T& operator[](const size_t index) const
+            ConstReferenceType operator[](const size_t index) const
             {
                 return this->get(index);
             }
@@ -266,7 +263,7 @@ namespace dsa::structures::arrays
              * @brief Gets first element.
              * @return Reference to first element of template type T.
              */
-            T& first()
+            ReferenceType first()
             {
                 return this->get(0);
             }
@@ -275,7 +272,7 @@ namespace dsa::structures::arrays
              * @brief Gets last element.
              * @return Reference to last element of template type T.
              */
-            T& last()
+            ReferenceType last()
             {
                 return this->get(size - 1);
             }
@@ -287,7 +284,7 @@ namespace dsa::structures::arrays
              * @param value Value to set at specific index.
              * @throws std::out_of_range if index is out of array bounds.
              */
-            void set(const size_t index, T value)
+            void set(const size_t index, ValueType value)
             {
                 if (index >= size)
                     throw std::out_of_range("Index out of array bounds");
@@ -301,14 +298,14 @@ namespace dsa::structures::arrays
              * @throws std::runtime_error if list size does not match array size from template parameter.
              * @return Reference to this StaticArray.
              */
-            StaticArray<T, size>& operator=(const std::initializer_list<T>& list)
+            StaticArray<ValueType, size>& operator=(const std::initializer_list<ValueType>& list)
             {
                 if (size != list.size())
                     throw std::runtime_error("Entered array size does not match template parameter size");
 
                 size_t i = 0;
 
-                for (T value : list)
+                for (ValueType value : list)
                 {
                     if (i >= size)
                         break;
@@ -324,14 +321,14 @@ namespace dsa::structures::arrays
              * @param other StaticArray to copy from.
              * @return Reference to this StaticArray.
              */
-            StaticArray<T, size>& operator=(const StaticArray<T, size>& other)
+            StaticArray<ValueType, size>& operator=(const StaticArray<ValueType, size>& other)
             {
                 if (this == other)
                     return *this;
 
                 delete[] this->pElements;
 
-                this->pElements = new T[size]();
+                this->pElements = new ValueType[size]();
 
                 for (size_t i = 0; i < size; i++)
                 {
@@ -346,7 +343,7 @@ namespace dsa::structures::arrays
              * @param other StaticArray to copy from.
              * @return Reference to this StaticArray.
              */
-            StaticArray<T, size>& operator=(StaticArray<T, size>&& other) noexcept
+            StaticArray<ValueType, size>& operator=(StaticArray<ValueType, size>&& other) noexcept
             {
                 if (this == &other)
                     return *this;
@@ -365,7 +362,7 @@ namespace dsa::structures::arrays
              * @param array Array to output.
              * @return Reference to output stream.
              */
-            friend std::ostream& operator<<(std::ostream& os, const StaticArray<T, size>& array)
+            friend std::ostream& operator<<(std::ostream& os, const StaticArray<ValueType, size>& array)
             {
                 for (size_t i = 0; i < size; i++)
                 {

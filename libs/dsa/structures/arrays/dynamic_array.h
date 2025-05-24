@@ -134,30 +134,26 @@ namespace dsa::structures::arrays
 
         public:
             using ValueType = T;
+            using ReferenceType = T&;
+            using ConstReferenceType = const T&;
+            using PointerType = T*;
             using Iterator = DynamicArrayIterator<DynamicArray<T>>;
 
         public:
             /**
              * @brief Default constructor. Initializes an empty array.
              */
-            DynamicArray()
-            {
-                this->mSize = 0;
-                this->pElements = nullptr;
-            }
+            DynamicArray() : pElements(nullptr), mSize(0) {}
 
             /**
              * @brief Constructs the array from an initializer list.
              * @param array Initializer list of elements to populate the array.
              */
-            DynamicArray(std::initializer_list<T> array)
+            DynamicArray(std::initializer_list<T> array) : pElements(new ValueType[array.size()]), mSize(array.size())
             {
-                this->mSize = array.size();
-                this->pElements = new T[this->mSize]();
-
                 size_t i = 0;
 
-                for (T it : array)
+                for (ValueType it : array)
                 {
                     if (i >= this->mSize)
                         break;
@@ -170,11 +166,8 @@ namespace dsa::structures::arrays
              * @brief Copy constructor. Creates a deep copy of another DynamicArray.
              * @param other The DynamicArray to copy from.
              */
-            DynamicArray(const DynamicArray<T>& other)
+            DynamicArray(const DynamicArray<ValueType>& other) : pElements(new ValueType[other.mSize]), mSize(other.mSize)
             {
-                this->mSize = other.mSize;
-                this->pElements = new T[this->mSize]();
-
                 for (size_t i = 0; i < this->mSize; i++)
                 {
                     this->pElements[i] = other.pElements[i];
@@ -201,11 +194,8 @@ namespace dsa::structures::arrays
              *
              * @param other The DynamicArray to move from.
              */
-            DynamicArray(DynamicArray<T>&& other) noexcept
+            DynamicArray(DynamicArray<ValueType>&& other) noexcept : pElements(other.pElements), mSize(other.mSize)
             {
-                this->mSize = other.mSize;
-                this->pElements = other.pElements;
-
                 other.mSize = 0;
                 other.pElements = nullptr;
             }
@@ -215,8 +205,8 @@ namespace dsa::structures::arrays
              * @param index Index of the element to access.
              * @return Reference to the element.
              * @throws std::out_of_range if index is out of bounds.
-            */
-            T& get(const size_t index)
+             */
+            ReferenceType get(const size_t index)
             {
                 if (index >= this->mSize)
                     throw std::out_of_range("Index out of array bounds");
@@ -230,7 +220,7 @@ namespace dsa::structures::arrays
              * @return Const reference to the element.
              * @throws std::out_of_range if index is out of bounds.
              */
-            const T& get(const size_t index) const
+            ConstReferenceType get(const size_t index) const
             {
                 if (index >= this->mSize)
                     throw std::out_of_range("Index out of array bounds");
@@ -243,7 +233,7 @@ namespace dsa::structures::arrays
              * @param index Index of the element to access.
              * @return Reference to the element.
              */
-            T& operator[](const size_t index)
+            ReferenceType operator[](const size_t index)
             {
                 return this->get(index);
             }
@@ -253,7 +243,7 @@ namespace dsa::structures::arrays
              * @param index Index of the element to access.
              * @return Const reference to the element.
              */
-            const T& operator[](const size_t index) const
+            ConstReferenceType operator[](const size_t index) const
             {
                 return this->get(index);
             }
@@ -272,17 +262,17 @@ namespace dsa::structures::arrays
              * @return Reference to the first element.
              * @throws std::out_of_range if the array is empty.
              */
-            T& first()
+            ReferenceType first()
             {
                 return this->get(0);
             }
 
             /**
              * @brief Returns a const reference to the first element.
-             * @return Const reference to the first element.
+             * @return Reference to the first element.
              * @throws std::out_of_range if the array is empty.
              */
-            const T& first() const
+            ConstReferenceType first() const
             {
                 return this->get(0);
             }
@@ -292,7 +282,7 @@ namespace dsa::structures::arrays
              * @return Reference to the last element.
              * @throws std::out_of_range if the array is empty.
              */
-            T& last()
+            ReferenceType last()
             {
                 return this->get(this->mSize - 1);
             }
@@ -302,7 +292,7 @@ namespace dsa::structures::arrays
              * @return Const reference to the last element.
              * @throws std::out_of_range if the array is empty.
              */
-            const T& last() const
+            ConstReferenceType last() const
             {
                 return this->get(this->mSize - 1);
             }
@@ -313,7 +303,7 @@ namespace dsa::structures::arrays
              * @param value Value to assign.
              * @throws std::out_of_range if index is out of bounds.
              */
-            void set(size_t index, T value)
+            void set(size_t index, ValueType value)
             {
                 if (index >= this->mSize)
                     throw std::out_of_range("Index out of array bounds");
@@ -325,19 +315,19 @@ namespace dsa::structures::arrays
              * @brief Adds an element to the end of the array.
              * @param value Value to add.
              */
-            void addLast(T value)
+            void addLast(ValueType value)
             {
                 if (this->mSize == 0)
                 {
-                    this->pElements = new T[1];
+                    this->pElements = new ValueType[1];
                     this->pElements[0] = value;
                     this->mSize++;
 
                     return;
                 }
 
-                T* temp;
-                temp = new T[this->mSize + 1];
+                PointerType temp;
+                temp = new ValueType[this->mSize + 1];
 
                 for (size_t i = 0; i < this->mSize; i++)
                 {
@@ -357,19 +347,19 @@ namespace dsa::structures::arrays
              * @brief Adds an element to the beginning of the array.
              * @param value Value to add.
              */
-            void addFirst(T value)
+            void addFirst(ValueType value)
             {
                 if (this->mSize == 0)
                 {
-                    this->pElements = new T[1];
+                    this->pElements = new ValueType[1];
                     this->pElements[0] = value;
                     this->mSize++;
 
                     return;
                 }
 
-                T* temp;
-                temp = new T[this->mSize + 1];
+                PointerType temp;
+                temp = new ValueType[this->mSize + 1];
 
                 temp[0] = value;
 
@@ -403,8 +393,8 @@ namespace dsa::structures::arrays
                     return;
                 }
 
-                T* temp;
-                temp = new T[this->mSize - 1];
+                PointerType temp;
+                temp = new ValueType[this->mSize - 1];
 
                 for (size_t i = 0; i < this->mSize - 1; i++)
                 {
@@ -436,8 +426,8 @@ namespace dsa::structures::arrays
                     return;
                 }
 
-                T* temp;
-                temp = new T[this->mSize - 1];
+                PointerType temp;
+                temp = new ValueType[this->mSize - 1];
 
                 for (size_t i = 0; i < this->mSize - 1; i++)
                 {
@@ -470,8 +460,8 @@ namespace dsa::structures::arrays
                     return;
                 }
 
-                T* temp;
-                temp = new T[this->mSize - 1];
+                PointerType temp;
+                temp = new ValueType[this->mSize - 1];
 
                 for (size_t i = 0; i < this->mSize; i++)
                 {
@@ -497,7 +487,7 @@ namespace dsa::structures::arrays
              * @param other The DynamicArray to copy from.
              * @return Reference to this DynamicArray.
              */
-            DynamicArray<T>& operator=(const DynamicArray<T>& other)
+            DynamicArray<ValueType>& operator=(const DynamicArray<ValueType>& other)
             {
                 if (this == &other)
                     return *this;
@@ -505,7 +495,7 @@ namespace dsa::structures::arrays
                 delete[] this->pElements;
 
                 this->mSize = other.mSize;
-                this->pElements = new T[this->mSize]();
+                this->pElements = new ValueType[this->mSize]();
 
                 for (size_t i = 0; i < this->mSize; i++)
                 {
@@ -520,7 +510,7 @@ namespace dsa::structures::arrays
              * @param other The DynamicArray to move from.
              * @return Reference to this DynamicArray.
              */
-            DynamicArray<T>& operator=(DynamicArray<T>&& other) noexcept
+            DynamicArray<ValueType>& operator=(DynamicArray<ValueType>&& other) noexcept
             {
                 if (this == &other)
                     return *this;
@@ -541,7 +531,7 @@ namespace dsa::structures::arrays
              * @param list Initializer list of elements to assign.
              * @return Reference to this DynamicArray.
              */
-            DynamicArray<T>& operator=(const std::initializer_list<T>& list)
+            DynamicArray<ValueType>& operator=(const std::initializer_list<ValueType>& list)
             {
                 if (list.size() == 0)
                 {
@@ -556,11 +546,11 @@ namespace dsa::structures::arrays
 
                 this->mSize = list.size();
 
-                this->pElements = new T[this->mSize];
+                this->pElements = new ValueType[this->mSize];
 
                 size_t i = 0;
 
-                for (T it : list)
+                for (ValueType it : list)
                 {
                     if (i >= this->mSize)
                         break;
@@ -577,7 +567,7 @@ namespace dsa::structures::arrays
              * @param array The DynamicArray to output.
              * @return Reference to the output stream.
              */
-            friend std::ostream& operator<<(std::ostream& os, const DynamicArray<T>& array)
+            friend std::ostream& operator<<(std::ostream& os, const DynamicArray<ValueType>& array)
             {
                 for (size_t i = 0; i < array.mSize; i++)
                 {

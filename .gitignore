@@ -35,3 +35,11 @@
 .vs
 build
 intermediates
+
+# CMake-generated files
+cmake-build-debug
+
+# Others
+.idea
+.cache
+.ccls-cache

@@ -2,14 +2,11 @@
 //
 
 #include <iostream>
+#include <gtest/gtest.h>
 
-#include <dsa/structures/arrays/static_array.h>
-#include <dsa/structures/arrays/dynamic_array.h>
-
-#include "unit_tests/structures/arrays/dynamic_array.h"
-
-int main()
+int main(int argc, char** argv)
 {
+    /*
     std::cout << "STATIC ARRAY\n";
 
     dsa::structures::arrays::StaticArray<int, 5> arr = { 1,2,3,4,5 };
@@ -30,5 +27,12 @@ int main()
 
     std::cout << "\n\n\nDYNAMIC ARRAY\n";
 
-    tests::structures::arrays::dynamicArray();
+
+    dsa::structures::linked_list::Node<int> node = 1;
+    */
+
+    if (argc > 1 && std::string(argv[1]) == "--test") {
+        ::testing::InitGoogleTest(&argc, argv);
+        return RUN_ALL_TESTS();
+    }
 }

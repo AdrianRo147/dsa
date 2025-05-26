@@ -136,7 +136,7 @@ namespace dsa::structures::arrays
 
         public:
             using ValueType = T;
-            using ReferenceType T&;
+            using ReferenceType = T&;
             using ConstReferenceType = const T&;
             using PointerType = T*;
             using Iterator = StaticArrayIterator<StaticArray<ValueType, size>>;

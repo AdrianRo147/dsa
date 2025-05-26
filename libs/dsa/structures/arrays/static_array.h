@@ -54,7 +54,7 @@ namespace dsa::structures::arrays
              */
             StaticArrayIterator& operator--()
             {
-                return this->mPtr--;
+                this->mPtr--;
                 return *this;
             }
 
@@ -323,7 +323,7 @@ namespace dsa::structures::arrays
              */
             StaticArray<ValueType, size>& operator=(const StaticArray<ValueType, size>& other)
             {
-                if (this == other)
+                if (this == &other)
                     return *this;
 
                 delete[] this->pElements;

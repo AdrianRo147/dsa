@@ -56,7 +56,7 @@ namespace dsa::structures::linked_list
                     currentOtherNode = currentOtherNode->pNext;
                 }
 
-                this->pNext = currentNode;
+                this->pNext = newNodes;
             }
 
             /**
@@ -73,7 +73,20 @@ namespace dsa::structures::linked_list
              *
              * This destructor doesn't do anything, since deallocation is managed by linked_list.h.
              */
-            ~Node() = default;
+            ~Node()
+            {
+                Node<ValueType>* currentNode = this->pNext;
+                Node<ValueType>* nextNode = nullptr;
+
+                while (currentNode != nullptr)
+                {
+                    nextNode = nextNode->pNext;
+
+                    delete currentNode;
+
+                    currentNode = nextNode;
+                }
+            }
 
             /**
              * @brief Sets data.
@@ -142,8 +155,31 @@ namespace dsa::structures::linked_list
                 if (this == &other)
                     return *this;
 
-                this->mData = other.mData;
-                this->pNext = other.pNext;
+                this->pNext->~Node();
+
+                if (other.pNext == nullptr)
+                {
+                    this->mData = other.mData;
+                    this->pNext = nullptr;
+
+                    return *this;
+                }
+
+                Node<ValueType>* newNodes = new Node<ValueType>();
+
+                Node<ValueType>* currentNode = newNodes;
+                Node<ValueType>* currentOtherNode = other.pNext;
+
+                while(currentOtherNode != nullptr)
+                {
+                    currentNode->setData(currentOtherNode->getData());
+                    currentNode->pNext = new Node<ValueType>();
+
+                    currentNode = currentNode->pNext;
+                    currentOtherNode = currentOtherNode->pNext;
+                }
+
+                this->pNext = newNodes;
 
                 return *this;
             }

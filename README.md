@@ -35,12 +35,14 @@ git clone https://github.com/AdrianRo147/dsa
 
 ## Usage
 
-To using CMake you can do so using following commands
+To build using CMake you can do so using following commands
 
 ```
 cmake -B build
 cmake --build build
 ```
+
+To build using Visual Studio all you need to do is to build project. Before that make sure you have already setted up [vcpkg](https://learn.microsoft.com/sk-sk/vcpkg/get_started/get-started-msbuild?pivots=shell-powershell)
 
 To run tests you can start output binary with `--test` argument
 

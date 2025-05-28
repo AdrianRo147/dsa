@@ -76,6 +76,9 @@
     <LibraryPath>$(LibraryPath)</LibraryPath>
     <IncludePath>E:\source\dsa\libs;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -130,13 +133,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\tests\structures\arrays\dynamic_array.cpp" />
+    <ClCompile Include="..\tests\structures\arrays\static_array.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="unit_tests\structures\arrays\dynamic_array.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\libs\dsa\structures\arrays\dynamic_array.h" />
     <ClInclude Include="..\libs\dsa\structures\arrays\static_array.h" />
-    <ClInclude Include="unit_tests\structures\arrays\dynamic_array.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

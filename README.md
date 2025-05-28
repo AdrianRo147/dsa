@@ -1,9 +1,7 @@
 <div align="center">
-
-  # Data Structures and Algorithms library
+  <h1>Data Structures and Algorithms library</h1>
   
-  dsa-library is open-source collection of self-made data structures and algorithms made in C++.
-
+  <p>dsa-library is open-source collection of self-made data structures and algorithms made in C++.</p>
 
   <img src="https://badgen.net/github/license/adrianro147/dsa">
   <img src="https://badgen.net/github/stars/adrianro147/dsa">
